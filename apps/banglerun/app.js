@@ -104,6 +104,7 @@ class Gps {
     this._lastCall = time;
 
     if (!gps.fix) {
+      console.log("gps fix not available, returning d as 0");
       return { t: interval, d: 0 };
     }
 
@@ -118,6 +119,7 @@ class Gps {
     if (!this._coords) {
       this._coords = coords;
       this._lastValid = time;
+      console.log("old coords not available. Returning d as 0");
       return { t: interval, d: 0 };
     }
 
@@ -126,6 +128,7 @@ class Gps {
     const v = Vector.divideScalar(ds, dt);
 
     if (this._filter.isOutlier(v)) {
+      console.log("value v = " + v + " is an outlier. Returning d as 0");
       return { t: interval, d: 0 };
     }
 
@@ -139,6 +142,8 @@ class Gps {
     if (distance > 0) {
       this._shift = Vector.multiplyScalar(this._shift, remainder / length);
     }
+
+    console.log("returning d as" + distance);
 
     return { t: interval, d: distance };
   }
