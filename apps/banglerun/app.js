@@ -267,7 +267,7 @@ function handleGps(coords) {
   dataFile = s.open(BANGLEGPS_FILE,"a");
   if (dataFile) {
       const time = new Date().getTime();
-      dataFile.write([time, JSON.stringify(coords).join(",")+"\n"]);
+      dataFile.write([time, JSON.stringify(coords)].join(",") + "\n");
   }
   const step = gps.getDistance(coords);
   gpsReady = coords.fix > 0 && gps.isReady();
