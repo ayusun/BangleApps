@@ -1,6 +1,8 @@
 /** Global constants */
 const DEG_TO_RAD = Math.PI / 180;
 const EARTH_RADIUS = 6371008.8;
+const s = require('Storage');
+const BANGLEGPS_FILE = "BANGLERUN.GPS"
 
 /** Utilities for handling vectors */
 class Vector {
@@ -262,6 +264,11 @@ function draw() {
 }
 
 function handleGps(coords) {
+  dataFile = s.open(filename,"a");
+  if (dataFile) {
+      const time = new Date().getTime();
+      dataFile.write([time, JSON.stringify(coords).join(",")+"\n"]);
+  }
   const step = gps.getDistance(coords);
   gpsReady = coords.fix > 0 && gps.isReady();
   speed = isFinite(gps.speed) ? gps.speed : 0;
