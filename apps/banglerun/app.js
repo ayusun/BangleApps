@@ -264,7 +264,7 @@ function draw() {
 }
 
 function handleGps(coords) {
-  dataFile = s.open(filename,"a");
+  dataFile = s.open(BANGLEGPS_FILE,"a");
   if (dataFile) {
       const time = new Date().getTime();
       dataFile.write([time, JSON.stringify(coords).join(",")+"\n"]);
